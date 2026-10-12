@@ -1,0 +1,142 @@
+[
+    {
+        "stage":  "A-final-original",
+        "counters":  [
+                         {
+                             "type":  "INSTRUCTION",
+                             "missed":  "227",
+                             "covered":  "232"
+                         },
+                         {
+                             "type":  "BRANCH",
+                             "missed":  "39",
+                             "covered":  "24"
+                         },
+                         {
+                             "type":  "LINE",
+                             "missed":  "48",
+                             "covered":  "50"
+                         },
+                         {
+                             "type":  "COMPLEXITY",
+                             "missed":  "38",
+                             "covered":  "25"
+                         },
+                         {
+                             "type":  "METHOD",
+                             "missed":  "10",
+                             "covered":  "13"
+                         },
+                         {
+                             "type":  "CLASS",
+                             "missed":  "0",
+                             "covered":  "1"
+                         }
+                     ]
+    },
+    {
+        "stage":  "B0-generated-passing",
+        "counters":  [
+                         {
+                             "type":  "INSTRUCTION",
+                             "missed":  "145",
+                             "covered":  "314"
+                         },
+                         {
+                             "type":  "BRANCH",
+                             "missed":  "26",
+                             "covered":  "37"
+                         },
+                         {
+                             "type":  "LINE",
+                             "missed":  "32",
+                             "covered":  "66"
+                         },
+                         {
+                             "type":  "COMPLEXITY",
+                             "missed":  "27",
+                             "covered":  "36"
+                         },
+                         {
+                             "type":  "METHOD",
+                             "missed":  "4",
+                             "covered":  "19"
+                         },
+                         {
+                             "type":  "CLASS",
+                             "missed":  "0",
+                             "covered":  "1"
+                         }
+                     ]
+    },
+    {
+        "stage":  "B-generated",
+        "counters":  [
+                         {
+                             "type":  "INSTRUCTION",
+                             "missed":  "92",
+                             "covered":  "367"
+                         },
+                         {
+                             "type":  "BRANCH",
+                             "missed":  "18",
+                             "covered":  "45"
+                         },
+                         {
+                             "type":  "LINE",
+                             "missed":  "22",
+                             "covered":  "76"
+                         },
+                         {
+                             "type":  "COMPLEXITY",
+                             "missed":  "19",
+                             "covered":  "44"
+                         },
+                         {
+                             "type":  "METHOD",
+                             "missed":  "1",
+                             "covered":  "22"
+                         },
+                         {
+                             "type":  "CLASS",
+                             "missed":  "0",
+                             "covered":  "1"
+                         }
+                     ]
+    },
+    {
+        "stage":  "C-manual",
+        "counters":  [
+                         {
+                             "type":  "INSTRUCTION",
+                             "missed":  "31",
+                             "covered":  "428"
+                         },
+                         {
+                             "type":  "BRANCH",
+                             "missed":  "3",
+                             "covered":  "60"
+                         },
+                         {
+                             "type":  "LINE",
+                             "missed":  "6",
+                             "covered":  "92"
+                         },
+                         {
+                             "type":  "COMPLEXITY",
+                             "missed":  "3",
+                             "covered":  "60"
+                         },
+                         {
+                             "type":  "METHOD",
+                             "missed":  "0",
+                             "covered":  "23"
+                         },
+                         {
+                             "type":  "CLASS",
+                             "missed":  "0",
+                             "covered":  "1"
+                         }
+                     ]
+    }
+]

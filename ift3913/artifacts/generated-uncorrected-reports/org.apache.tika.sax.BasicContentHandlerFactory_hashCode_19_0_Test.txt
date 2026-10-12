@@ -1,0 +1,34 @@
+-------------------------------------------------------------------------------
+Test set: org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 6, Errors: 0, Skipped: 0, Time elapsed: 0.052 s <<< FAILURE! -- in org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test
+org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithDifferentType -- Time elapsed: 0.009 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1000> but was: <-1307178740>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:569)
+	at org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithDifferentType(BasicContentHandlerFactory_hashCode_19_0_Test.java:51)
+
+org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithDifferentThrowOnWriteLimitReached -- Time elapsed: 0.005 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1000> but was: <-1854869812>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:569)
+	at org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithDifferentThrowOnWriteLimitReached(BasicContentHandlerFactory_hashCode_19_0_Test.java:65)
+
+org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithDifferentValidateXHTML -- Time elapsed: 0.005 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1000> but was: <-1854869780>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:569)
+	at org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithDifferentValidateXHTML(BasicContentHandlerFactory_hashCode_19_0_Test.java:72)
+
+org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithDifferentWriteLimit -- Time elapsed: 0.007 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <2000> but was: <-1853908781>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:569)
+	at org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithDifferentWriteLimit(BasicContentHandlerFactory_hashCode_19_0_Test.java:58)
+
+org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCode -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1000> but was: <-1854869781>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:569)
+	at org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCode(BasicContentHandlerFactory_hashCode_19_0_Test.java:37)
+
+org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithNullType -- Time elapsed: 0.005 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1000> but was: <961031>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:569)
+	at org.apache.tika.sax.BasicContentHandlerFactory_hashCode_19_0_Test.testHashCodeWithNullType(BasicContentHandlerFactory_hashCode_19_0_Test.java:44)
+

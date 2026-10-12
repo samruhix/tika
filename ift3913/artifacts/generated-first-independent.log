@@ -1,0 +1,105 @@
+[INFO] Maveniverse Nisse 0.9.4 loaded
+[INFO] Nisse injecting 32 properties into User Properties
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.apache.tika:tika-parent:pom:4.0.0-SNAPSHOT
+[WARNING] 'version' contains an expression but should be a constant. @ org.apache.tika:tika-parent:${revision}, C:\Users\Gaming Pc\tika\tika-parent\pom.xml, line 34, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.apache.tika:tika:pom:4.0.0-SNAPSHOT
+[WARNING] 'version' contains an expression but should be a constant. @ org.apache.tika:tika-parent:${revision}, C:\Users\Gaming Pc\tika\tika-parent\pom.xml, line 34, column 12
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] No need for inlining
+[INFO] 
+[INFO] ---------------------< org.apache.tika:tika-core >----------------------
+[INFO] Building Apache Tika core 4.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] -------------------------------[ bundle ]-------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-maven-version) @ tika-core ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-version) @ tika-core ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-maven) @ tika-core ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (ban-bad-log4j-versions) @ tika-core ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.dependency.BannedDependencies passed
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (ban-xerces-and-xml-apis) @ tika-core ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.dependency.BannedDependencies passed
+[INFO] 
+[INFO] --- checkstyle:3.6.0:check (validate) @ tika-core ---
+[INFO] 
+[INFO] --- jacoco:0.8.15:prepare-agent (default) @ tika-core ---
+[INFO] surefireArgLine set to "-javaagent:C:\\Users\\Gaming Pc\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.15\\org.jacoco.agent-0.8.15-runtime.jar=destfile=C:\\Users\\Gaming Pc\\tika\\tika-core\\target\\jacoco.exec"
+[INFO] 
+[INFO] --- spotless:3.9.0:apply (default) @ tika-core ---
+[INFO] Spotless apply skipped
+[INFO] 
+[INFO] --- remote-resources:3.3.0:process (process-resource-bundles) @ tika-core ---
+[INFO] Preparing remote bundle org.apache.apache.resources:apache-jar-resource-bundle:1.8
+[INFO] Copying 3 resources from 1 bundle.
+[INFO] Copying appended resource: META-INF/LICENSE
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ tika-core ---
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO] Copying 3 resources from target\maven-shared-archive-resources to target\classes
+[INFO] 
+[INFO] --- flatten:1.8.0:flatten (flatten) @ tika-core ---
+[INFO] Generating flattened POM of project org.apache.tika:tika-core:bundle:4.0.0-SNAPSHOT...
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ tika-core ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ tika-core ---
+[INFO] Copying 57 resources from src\test\resources to target\test-classes
+[INFO] Copying 3 resources from target\maven-shared-archive-resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ tika-core ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 71 source files with javac [debug deprecation release 17] to target\test-classes
+[WARNING] /C:/Users/Gaming Pc/tika/tika-core/src/test/java/org/apache/tika/mime/MimeTypesReaderTest.java:[296,37] getMimeType(java.lang.String) in org.apache.tika.mime.MimeTypes has been deprecated
+[WARNING] /C:/Users/Gaming Pc/tika/tika-core/src/test/java/org/apache/tika/mime/MimeTypesReaderTest.java:[304,37] getMimeType(java.lang.String) in org.apache.tika.mime.MimeTypes has been deprecated
+[WARNING] /C:/Users/Gaming Pc/tika/tika-core/src/test/java/org/apache/tika/parser/ParserDecoratorTest.java:[117,28] withFallbacks(java.util.Collection<? extends org.apache.tika.parser.Parser>,java.util.Set<org.apache.tika.mime.MediaType>) in org.apache.tika.parser.ParserDecorator has been deprecated
+[WARNING] /C:/Users/Gaming Pc/tika/tika-core/src/test/java/org/apache/tika/utils/ServiceLoaderUtilsTest.java:[45,48] org.apache.tika.detect.OverrideDetector in org.apache.tika.detect has been deprecated
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ tika-core ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junit4.JUnit4Provider
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit4/3.5.6/surefire-junit4-3.5.6.pom
+Progress (1): 833 BProgress (1): 2.2 kBProgress (1): 3.3 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit4/3.5.6/surefire-junit4-3.5.6.pom (3.3 kB at 7.7 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-junit4/3.5.6/common-junit4-3.5.6.pom
+Progress (1): 833 BProgress (1): 3.0 kBProgress (1): 3.4 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-junit4/3.5.6/common-junit4-3.5.6.pom (3.4 kB at 49 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-junit3/3.5.6/common-junit3-3.5.6.pom
+Progress (1): 844 BProgress (1): 2.0 kBProgress (1): 2.7 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-junit3/3.5.6/common-junit3-3.5.6.pom (2.7 kB at 62 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit4/3.5.6/surefire-junit4-3.5.6.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-junit4/3.5.6/common-junit4-3.5.6.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-junit3/3.5.6/common-junit3-3.5.6.jar
+Progress (1): 0.9/18 kBProgress (1): 2.3/18 kBProgress (1): 3.6/18 kBProgress (1): 5.0/18 kBProgress (1): 6.4/18 kBProgress (1): 7.7/18 kBProgress (1): 9.1/18 kBProgress (1): 10/18 kB Progress (1): 12/18 kBProgress (1): 13/18 kBProgress (1): 15/18 kBProgress (1): 16/18 kBProgress (1): 17/18 kBProgress (1): 18 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit4/3.5.6/surefire-junit4-3.5.6.jar (18 kB at 281 kB/s)
+Progress (1): 0.9/26 kBProgress (1): 2.3/26 kBProgress (1): 3.6/26 kBProgress (1): 5.0/26 kBProgress (1): 6.4/26 kBProgress (1): 7.7/26 kBProgress (1): 9.1/26 kBProgress (1): 10/26 kB Progress (1): 12/26 kBProgress (1): 13/26 kBProgress (1): 15/26 kBProgress (1): 16/26 kBProgress (1): 17/26 kBProgress (1): 19/26 kBProgress (1): 20/26 kBProgress (1): 21/26 kBProgress (1): 23/26 kBProgress (1): 24/26 kBProgress (1): 26/26 kBProgress (1): 26 kB   Progress (2): 26 kB | 0.9/12 kBProgress (2): 26 kB | 2.3/12 kBProgress (2): 26 kB | 3.6/12 kBProgress (2): 26 kB | 5.0/12 kBProgress (2): 26 kB | 6.4/12 kBProgress (2): 26 kB | 7.7/12 kBProgress (2): 26 kB | 8.2/12 kBProgress (2): 26 kB | 9.6/12 kBProgress (2): 26 kB | 11/12 kB Progress (2): 26 kB | 12 kB                              Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-junit4/3.5.6/common-junit4-3.5.6.jar (26 kB at 210 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-junit3/3.5.6/common-junit3-3.5.6.jar (12 kB at 95 kB/s)
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jacoco:0.8.15:report (report) @ tika-core ---
+[INFO] Loading execution data file C:\Users\Gaming Pc\tika\tika-core\target\jacoco.exec
+[INFO] Analyzed bundle 'Apache Tika core' with 345 classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  18.743 s
+[INFO] Finished at: 2026-10-11T22:45:29-04:00
+[INFO] ------------------------------------------------------------------------

@@ -1,0 +1,147 @@
+package org.apache.tika.sax;
+
+import org.apache.tika.sax.BasicContentHandlerFactory;
+import org.apache.tika.parser.ParseContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.*;
+import org.junit.jupiter.api.*;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.Locale;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.helpers.DefaultHandler;
+import org.apache.tika.annotation.TikaComponent;
+import org.apache.tika.config.OutputLimits;
+
+@ExtendWith(MockitoExtension.class)
+public class BasicContentHandlerFactory_createHandler_4_0_Test {
+
+    @Mock
+    private ParseContext parseContext;
+
+    private BasicContentHandlerFactory factory;
+
+    @BeforeEach
+    public void setUp() {
+        factory = new BasicContentHandlerFactory();
+    }
+
+    @Test
+    public void testCreateHandler() {
+        ContentHandler handler = factory.createHandler();
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithParameters() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.BODY, 1000);
+        ContentHandler handler = factory.createHandler();
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithParametersAndParseContext() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.BODY, 1000, false, parseContext);
+        ContentHandler handler = factory.createHandler();
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithParametersAndParseContextThrowsException() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.BODY, 1000, false, null);
+        assertThrows(IllegalArgumentException.class, () -> factory.createHandler());
+    }
+
+    @Test
+    public void testCreateHandlerInner() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.BODY, 1000, false, parseContext);
+        ContentHandler handler = factory.createHandlerInner();
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerInnerWithIgnoreType() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.IGNORE, 1000, false, parseContext);
+        ContentHandler handler = factory.createHandlerInner();
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerInnerWithNoFormatHandler() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.MARKDOWN, 1000, false, parseContext);
+        ContentHandler handler = factory.createHandlerInner();
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerInnerWithNegativeWriteLimit() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.MARKDOWN, -1, false, parseContext);
+        ContentHandler handler = factory.createHandlerInner();
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerInnerWithPositiveWriteLimit() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.MARKDOWN, 1000, false, parseContext);
+        ContentHandler handler = factory.createHandlerInner();
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerInnerWithThrowOnWriteLimitReached() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.MARKDOWN, 1000, true, parseContext);
+        ContentHandler handler = factory.createHandlerInner();
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerInnerWithNoThrowOnWriteLimitReached() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.MARKDOWN, 1000, false, parseContext);
+        ContentHandler handler = factory.createHandlerInner();
+        assertNotNull(handler);
+    }
+}
+
+--------------------------------------------
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line -1 : Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line -1 : Supported source version 'RELEASE_17' from annotation processor 'org.apache.tika.annotation.TikaComponentProcessor' less than -source '21'
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 63 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: createHandlerInner() has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 70 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: createHandlerInner() has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 77 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: createHandlerInner() has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 84 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: createHandlerInner() has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 91 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: createHandlerInner() has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 98 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: createHandlerInner() has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 105 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: createHandlerInner() has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line -1 : Some messages have been simplified; recompile with -Xdiags:verbose to get full output

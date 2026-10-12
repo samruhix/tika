@@ -1,0 +1,11 @@
+{
+  "attempt0": {
+    "testClassName": "BasicContentHandlerFactory_newInstance_2_0_Test",
+    "fullName": "org.apache.tika.sax.BasicContentHandlerFactory_newInstance_2_0_Test",
+    "path": "C:\\Users\\Gaming Pc\\tika\\tika-core\\..\\ift3913\\artifacts\\generated-raw\\tika-parent\\tika-core\\org\\apache\\tika\\sax\\BasicContentHandlerFactory_newInstance_2_0_Test.java",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax",
+    "methodName": "newInstance",
+    "methodSig": "newInstance(HANDLER_TYPE, ParseContext)"
+  }
+}

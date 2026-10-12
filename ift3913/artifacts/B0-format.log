@@ -1,0 +1,76 @@
+[INFO] Maveniverse Nisse 0.9.4 loaded
+[INFO] Nisse injecting 32 properties into User Properties
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.apache.tika:tika-parent:pom:4.0.0-SNAPSHOT
+[WARNING] 'version' contains an expression but should be a constant. @ org.apache.tika:tika-parent:${revision}, C:\Users\Gaming Pc\tika\tika-parent\pom.xml, line 34, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.apache.tika:tika:pom:4.0.0-SNAPSHOT
+[WARNING] 'version' contains an expression but should be a constant. @ org.apache.tika:tika-parent:${revision}, C:\Users\Gaming Pc\tika\tika-parent\pom.xml, line 34, column 12
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] No need for inlining
+Downloading from central: https://repo.maven.apache.org/maven2/org/jacoco/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/sonatype/ossindex/maven/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/felix/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/de/thetaphi/maven-metadata.xml
+Progress (1): 259 BProgress (2): 259 B | 237 BProgress (3): 259 B | 237 B | 1.1 kB                                    Downloaded from central: https://repo.maven.apache.org/maven2/org/sonatype/ossindex/maven/maven-metadata.xml (259 B at 657 B/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/felix/maven-metadata.xml (1.1 kB at 2.8 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/jacoco/maven-metadata.xml (237 B at 600 B/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/pitest/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/com/diffplug/spotless/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/rat/maven-metadata.xml
+Progress (1): 249 B                   Downloaded from central: https://repo.maven.apache.org/maven2/de/thetaphi/maven-metadata.xml (249 B at 620 B/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/tooling/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+Progress (1): 240 BProgress (2): 240 B | 976 BProgress (3): 240 B | 976 B | 558 B                                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/tooling/maven-metadata.xml (240 B at 5.1 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml
+Downloaded from central: https://repo.maven.apache.org/maven2/org/pitest/maven-metadata.xml (976 B at 18 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/rat/maven-metadata.xml (558 B at 9.6 kB/s)
+Progress (1): 3.9 kBProgress (1): 7.7 kBProgress (1): 10 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml (10 kB at 201 kB/s)
+Progress (1): 3.7 kBProgress (1): 7.4 kBProgress (1): 13 kB Progress (1): 19 kBProgress (1): 20 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml (20 kB at 356 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/versions-maven-plugin/2.21.0/versions-maven-plugin-2.21.0.pom
+Progress (1): 1.9 kBProgress (1): 5.5 kBProgress (1): 7.9 kBProgress (1): 10 kB Progress (1): 12 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/versions-maven-plugin/2.21.0/versions-maven-plugin-2.21.0.pom (12 kB at 183 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/versions/versions/2.21.0/versions-2.21.0.pom
+Progress (1): 1.1 kBProgress (1): 2.9 kBProgress (1): 4.6 kBProgress (1): 9.3 kBProgress (1): 12 kB Progress (1): 15 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/versions/versions/2.21.0/versions-2.21.0.pom (15 kB at 247 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/versions-maven-plugin/2.21.0/versions-maven-plugin-2.21.0.jar
+Progress (1): 0.9/301 kBProgress (1): 2.3/301 kBProgress (1): 3.6/301 kBProgress (1): 5.0/301 kBProgress (1): 6.4/301 kBProgress (1): 7.7/301 kBProgress (1): 9.1/301 kBProgress (1): 10/301 kB Progress (1): 12/301 kBProgress (1): 13/301 kBProgress (1): 15/301 kBProgress (1): 16/301 kBProgress (1): 17/301 kBProgress (1): 19/301 kBProgress (1): 20/301 kBProgress (1): 21/301 kBProgress (1): 23/301 kBProgress (1): 24/301 kBProgress (1): 25/301 kBProgress (1): 26/301 kBProgress (1): 27/301 kBProgress (1): 29/301 kBProgress (1): 30/301 kBProgress (1): 31/301 kBProgress (1): 33/301 kBProgress (1): 34/301 kBProgress (1): 36/301 kBProgress (1): 40/301 kBProgress (1): 44/301 kBProgress (1): 48/301 kBProgress (1): 52/301 kBProgress (1): 57/301 kBProgress (1): 61/301 kBProgress (1): 65/301 kBProgress (1): 69/301 kBProgress (1): 74/301 kBProgress (1): 78/301 kBProgress (1): 82/301 kBProgress (1): 86/301 kBProgress (1): 91/301 kBProgress (1): 95/301 kBProgress (1): 99/301 kBProgress (1): 103/301 kBProgress (1): 107/301 kBProgress (1): 112/301 kBProgress (1): 116/301 kBProgress (1): 120/301 kBProgress (1): 124/301 kBProgress (1): 129/301 kBProgress (1): 133/301 kBProgress (1): 137/301 kBProgress (1): 141/301 kBProgress (1): 145/301 kBProgress (1): 150/301 kBProgress (1): 154/301 kBProgress (1): 156/301 kBProgress (1): 160/301 kBProgress (1): 164/301 kBProgress (1): 168/301 kBProgress (1): 173/301 kBProgress (1): 177/301 kBProgress (1): 181/301 kBProgress (1): 185/301 kBProgress (1): 189/301 kBProgress (1): 194/301 kBProgress (1): 198/301 kBProgress (1): 202/301 kBProgress (1): 219/301 kBProgress (1): 235/301 kBProgress (1): 251/301 kBProgress (1): 268/301 kBProgress (1): 284/301 kBProgress (1): 287/301 kBProgress (1): 301 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/versions-maven-plugin/2.21.0/versions-maven-plugin-2.21.0.jar (301 kB at 2.2 MB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/rat/apache-rat-plugin/0.18/apache-rat-plugin-0.18.pom
+Progress (1): 757 BProgress (1): 2.3 kBProgress (1): 4.3 kBProgress (1): 7.3 kBProgress (1): 11 kB Progress (1): 16 kBProgress (1): 17 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/rat/apache-rat-plugin/0.18/apache-rat-plugin-0.18.pom (17 kB at 215 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/rat/apache-rat-project/0.18/apache-rat-project-0.18.pom
+Progress (1): 722 BProgress (1): 1.8 kBProgress (1): 3.2 kBProgress (1): 5.1 kBProgress (1): 10 kB Progress (1): 12 kBProgress (1): 15 kBProgress (1): 19 kBProgress (1): 22 kBProgress (1): 25 kBProgress (1): 29 kBProgress (1): 32 kBProgress (1): 35 kBProgress (1): 38 kBProgress (1): 40 kBProgress (1): 41 kBProgress (1): 41 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/rat/apache-rat-project/0.18/apache-rat-project-0.18.pom (41 kB at 525 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/assertj/assertj-bom/4.0.0-M1/assertj-bom-4.0.0-M1.pom
+Progress (1): 1.0 kBProgress (1): 3.7 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/assertj/assertj-bom/4.0.0-M1/assertj-bom-4.0.0-M1.pom (3.7 kB at 53 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/6.1.0-M1/junit-bom-6.1.0-M1.pom
+Progress (1): 914 BProgress (1): 4.2 kBProgress (1): 5.3 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/6.1.0-M1/junit-bom-6.1.0-M1.pom (5.3 kB at 59 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/mockito/mockito-bom/5.22.0/mockito-bom-5.22.0.pom
+Progress (1): 1.4 kBProgress (1): 3.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/mockito/mockito-bom/5.22.0/mockito-bom-5.22.0.pom (3.0 kB at 39 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/rat/apache-rat-plugin/0.18/apache-rat-plugin-0.18.jar
+Progress (1): 7.7/97 kBProgress (1): 16/97 kB Progress (1): 24/97 kBProgress (1): 40/97 kBProgress (1): 57/97 kBProgress (1): 73/97 kBProgress (1): 90/97 kBProgress (1): 97 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/rat/apache-rat-plugin/0.18/apache-rat-plugin-0.18.jar (97 kB at 1.4 MB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-release-plugin/3.3.1/maven-release-plugin-3.3.1.pom
+Progress (1): 767 BProgress (1): 3.3 kBProgress (1): 6.6 kBProgress (1): 9.2 kBProgress (1): 9.7 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-release-plugin/3.3.1/maven-release-plugin-3.3.1.pom (9.7 kB at 137 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/release/maven-release/3.3.1/maven-release-3.3.1.pom
+Progress (1): 772 BProgress (1): 2.5 kBProgress (1): 4.3 kBProgress (1): 10 kB Progress (1): 11 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/release/maven-release/3.3.1/maven-release-3.3.1.pom (11 kB at 135 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-release-plugin/3.3.1/maven-release-plugin-3.3.1.jar
+Progress (1): 7.7/63 kBProgress (1): 16/63 kB Progress (1): 24/63 kBProgress (1): 40/63 kBProgress (1): 57/63 kBProgress (1): 63 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-release-plugin/3.3.1/maven-release-plugin-3.3.1.jar (63 kB at 838 kB/s)
+[INFO] 
+[INFO] ---------------------< org.apache.tika:tika-core >----------------------
+[INFO] Building Apache Tika core 4.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] -------------------------------[ bundle ]-------------------------------
+[INFO] 
+[INFO] --- spotless:3.9.0:apply (default-cli) @ tika-core ---
+[INFO] clean file: C:\Users\Gaming Pc\tika\tika-core\src\test\java\org\apache\tika\sax\BasicContentHandlerFactory_createHandler_4_0_Test.java
+[INFO] clean file: C:\Users\Gaming Pc\tika\tika-core\src\test\java\org\apache\tika\sax\BasicContentHandlerFactory_equals_18_0_Test.java
+[INFO] clean file: C:\Users\Gaming Pc\tika\tika-core\src\test\java\org\apache\tika\sax\BasicContentHandlerFactory_handlerTypeName_11_0_Test.java
+[INFO] clean file: C:\Users\Gaming Pc\tika\tika-core\src\test\java\org\apache\tika\sax\BasicContentHandlerFactory_newInstance_2_0_Test.java
+[INFO] Spotless.Java is keeping 393 files clean - 4 were changed to be clean, 0 were already clean, 389 were skipped because caching determined they were already clean
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.085 s
+[INFO] Finished at: 2026-10-11T22:55:51-04:00
+[INFO] ------------------------------------------------------------------------

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.apache.tika.sax.BasicContentHandlerFactory_createHandler_4_0_Test
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.468 s -- in org.apache.tika.sax.BasicContentHandlerFactory_createHandler_4_0_Test

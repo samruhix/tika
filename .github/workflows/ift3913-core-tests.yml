@@ -1,0 +1,27 @@
+name: IFT3913 core tests
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tika-core/**'
+      - '.github/workflows/ift3913-core-tests.yml'
+  pull_request:
+    paths:
+      - 'tika-core/**'
+      - '.github/workflows/ift3913-core-tests.yml'
+jobs:
+  core-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - run: ./mvnw -B -pl tika-core -am test -DskipTests=false -Dmaven.test.skip=false
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: core-test-reports
+          path: tika-core/target/surefire-reports/

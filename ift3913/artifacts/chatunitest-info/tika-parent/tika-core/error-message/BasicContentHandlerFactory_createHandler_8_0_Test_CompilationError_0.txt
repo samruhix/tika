@@ -1,0 +1,392 @@
+package org.apache.tika.sax;
+
+import org.apache.tika.sax.BasicContentHandlerFactory;
+import org.apache.tika.parser.ParseContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import org.mockito.*;
+import org.junit.jupiter.api.*;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.Locale;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.helpers.DefaultHandler;
+import org.apache.tika.annotation.TikaComponent;
+import org.apache.tika.config.OutputLimits;
+
+@ExtendWith(MockitoExtension.class)
+public class BasicContentHandlerFactory_createHandler_8_0_Test {
+
+    @Mock
+    private OutputStream outputStream;
+
+    @Mock
+    private Charset charset;
+
+    @Mock
+    private ParseContext parseContext;
+
+    private BasicContentHandlerFactory factory;
+
+    @BeforeEach
+    public void setUp() {
+        factory = new BasicContentHandlerFactory();
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultValues() throws UnsupportedEncodingException {
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithWriteLimit() throws UnsupportedEncodingException {
+        factory.setWriteLimit(100);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithThrowOnWriteLimitReached() throws UnsupportedEncodingException {
+        factory.setThrowOnWriteLimitReached(false);
+        factory.setParseContext(parseContext);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithInvalidParseContext() {
+        factory.setThrowOnWriteLimitReached(false);
+        assertThrows(IllegalArgumentException.class, () -> factory.setParseContext(null));
+    }
+
+    @Test
+    public void testCreateHandlerWithUnsupportedCharset() throws UnsupportedEncodingException {
+        when(charset.name()).thenReturn("unsupportedCharset");
+        assertThrows(RuntimeException.class, () -> factory.createHandler(outputStream, charset));
+    }
+
+    @Test
+    public void testCreateHandlerWithIgnoreType() throws UnsupportedEncodingException {
+        factory.setType(BasicContentHandlerFactory.HANDLER_TYPE.IGNORE);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertTrue(handler instanceof BasicContentHandlerFactory.NoOpContentHandler);
+    }
+
+    @Test
+    public void testCreateHandlerWithBodyType() throws UnsupportedEncodingException {
+        factory.setType(BasicContentHandlerFactory.HANDLER_TYPE.BODY);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertTrue(handler instanceof BasicContentHandlerFactory.WriteOutContentHandler);
+    }
+
+    @Test
+    public void testCreateHandlerWithTextType() throws UnsupportedEncodingException {
+        factory.setType(BasicContentHandlerFactory.HANDLER_TYPE.TEXT);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertTrue(handler instanceof BasicContentHandlerFactory.WriteOutContentHandler);
+    }
+
+    @Test
+    public void testCreateHandlerWithHtmlType() throws UnsupportedEncodingException {
+        factory.setType(BasicContentHandlerFactory.HANDLER_TYPE.HTML);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertTrue(handler instanceof BasicContentHandlerFactory.WriteOutContentHandler);
+    }
+
+    @Test
+    public void testCreateHandlerWithXmlType() throws UnsupportedEncodingException {
+        factory.setType(BasicContentHandlerFactory.HANDLER_TYPE.XML);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertTrue(handler instanceof BasicContentHandlerFactory.WriteOutContentHandler);
+    }
+
+    @Test
+    public void testCreateHandlerWithMarkdownType() throws UnsupportedEncodingException {
+        factory.setType(BasicContentHandlerFactory.HANDLER_TYPE.MARKDOWN);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertTrue(handler instanceof BasicContentHandlerFactory.WriteOutContentHandler);
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultCharset() throws UnsupportedEncodingException {
+        when(charset.name()).thenReturn("UTF-8");
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithCustomCharset() throws UnsupportedEncodingException {
+        when(charset.name()).thenReturn("ISO-8859-1");
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultParseContext() throws UnsupportedEncodingException {
+        factory.setParseContext(parseContext);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithCustomParseContext() throws UnsupportedEncodingException {
+        factory.setParseContext(parseContext);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultValidateXHTML() throws UnsupportedEncodingException {
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithCustomValidateXHTML() throws UnsupportedEncodingException {
+        factory.setValidateXHTML(true);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultType() throws UnsupportedEncodingException {
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithCustomType() throws UnsupportedEncodingException {
+        factory.setType(BasicContentHandlerFactory.HANDLER_TYPE.BODY);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultWriteLimit() throws UnsupportedEncodingException {
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithCustomWriteLimit() throws UnsupportedEncodingException {
+        factory.setWriteLimit(100);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultThrowOnWriteLimitReached() throws UnsupportedEncodingException {
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithCustomThrowOnWriteLimitReached() throws UnsupportedEncodingException {
+        factory.setThrowOnWriteLimitReached(false);
+        factory.setParseContext(parseContext);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultParseContextAndValidateXHTML() throws UnsupportedEncodingException {
+        factory.setParseContext(parseContext);
+        factory.setValidateXHTML(true);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithCustomParseContextAndValidateXHTML() throws UnsupportedEncodingException {
+        factory.setParseContext(parseContext);
+        factory.setValidateXHTML(true);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultParseContextAndType() throws UnsupportedEncodingException {
+        factory.setParseContext(parseContext);
+        factory.setType(BasicContentHandlerFactory.HANDLER_TYPE.BODY);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithCustomParseContextAndType() throws UnsupportedEncodingException {
+        factory.setParseContext(parseContext);
+        factory.setType(BasicContentHandlerFactory.HANDLER_TYPE.BODY);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+
+    @Test
+    public void testCreateHandlerWithDefaultParseContextAndWriteLimit() throws UnsupportedEncodingException {
+        factory.setParseContext(parseContext);
+        factory.setWriteLimit(100);
+        ContentHandler handler = factory.createHandler(outputStream, charset);
+        verify(factory, times(1)).createHandlerInner(outputStream, charset);
+        assertNotNull(handler);
+    }
+}
+
+--------------------------------------------
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line -1 : Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line -1 : Supported source version 'RELEASE_17' from annotation processor 'org.apache.tika.annotation.TikaComponentProcessor' less than -source '21'
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 43 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 51 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 60 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 80 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 81 : org.apache.tika.sax.BasicContentHandlerFactory.NoOpContentHandler has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 88 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 89 : cannot find symbol
+  symbol:   class WriteOutContentHandler
+  location: class org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 96 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 97 : cannot find symbol
+  symbol:   class WriteOutContentHandler
+  location: class org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 104 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 105 : cannot find symbol
+  symbol:   class WriteOutContentHandler
+  location: class org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 112 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 113 : cannot find symbol
+  symbol:   class WriteOutContentHandler
+  location: class org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 120 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 121 : cannot find symbol
+  symbol:   class WriteOutContentHandler
+  location: class org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 128 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 136 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 144 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 152 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 159 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 167 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 174 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 182 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 189 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 197 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 204 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 213 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 222 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 231 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 240 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 249 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line 258 : method createHandlerInner in class org.apache.tika.sax.BasicContentHandlerFactory cannot be applied to given types;
+  required: java.io.OutputStream,java.nio.charset.Charset
+  found:    java.io.OutputStream,java.nio.charset.Charset
+  reason: createHandlerInner(java.io.OutputStream,java.nio.charset.Charset) has private access in org.apache.tika.sax.BasicContentHandlerFactory
+Error in BasicContentHandlerFactory_createHandler_8_0_Test: line -1 : Some messages have been simplified; recompile with -Xdiags:verbose to get full output

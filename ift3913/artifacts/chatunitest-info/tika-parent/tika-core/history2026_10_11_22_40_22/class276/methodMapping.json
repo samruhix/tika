@@ -1,0 +1,140 @@
+{
+  "method0": {
+    "methodName": "setValidateXHTML",
+    "signature": "setValidateXHTML(boolean)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method1": {
+    "methodName": "isValidateXHTML",
+    "signature": "isValidateXHTML()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method10": {
+    "methodName": "getType",
+    "signature": "getType()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method11": {
+    "methodName": "handlerTypeName",
+    "signature": "handlerTypeName()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method12": {
+    "methodName": "setType",
+    "signature": "setType(HANDLER_TYPE)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method13": {
+    "methodName": "getWriteLimit",
+    "signature": "getWriteLimit()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method14": {
+    "methodName": "setWriteLimit",
+    "signature": "setWriteLimit(int)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method15": {
+    "methodName": "isThrowOnWriteLimitReached",
+    "signature": "isThrowOnWriteLimitReached()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method16": {
+    "methodName": "setThrowOnWriteLimitReached",
+    "signature": "setThrowOnWriteLimitReached(boolean)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method17": {
+    "methodName": "setParseContext",
+    "signature": "setParseContext(ParseContext)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method18": {
+    "methodName": "equals",
+    "signature": "equals(Object)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method19": {
+    "methodName": "hashCode",
+    "signature": "hashCode()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method2": {
+    "methodName": "newInstance",
+    "signature": "newInstance(HANDLER_TYPE, ParseContext)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method20": {
+    "methodName": "BasicContentHandlerFactory",
+    "signature": "BasicContentHandlerFactory()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method21": {
+    "methodName": "BasicContentHandlerFactory",
+    "signature": "BasicContentHandlerFactory(HANDLER_TYPE, int)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method22": {
+    "methodName": "BasicContentHandlerFactory",
+    "signature": "BasicContentHandlerFactory(HANDLER_TYPE, int, boolean, ParseContext)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method3": {
+    "methodName": "parseHandlerType",
+    "signature": "parseHandlerType(String, HANDLER_TYPE)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method4": {
+    "methodName": "createHandler",
+    "signature": "createHandler()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method5": {
+    "methodName": "createHandlerInner",
+    "signature": "createHandlerInner()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method6": {
+    "methodName": "maybeValidate",
+    "signature": "maybeValidate(ContentHandler)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method7": {
+    "methodName": "getFormatHandler",
+    "signature": "getFormatHandler()",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method8": {
+    "methodName": "createHandler",
+    "signature": "createHandler(OutputStream, Charset)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  },
+  "method9": {
+    "methodName": "createHandlerInner",
+    "signature": "createHandlerInner(OutputStream, Charset)",
+    "className": "BasicContentHandlerFactory",
+    "packageName": "org.apache.tika.sax"
+  }
+}

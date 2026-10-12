@@ -1,0 +1,22 @@
+[
+  {
+    "file": "BasicContentHandlerFactory_createHandler_4_0_Test.java",
+    "tests": 11
+  },
+  {
+    "file": "BasicContentHandlerFactory_equals_18_0_Test.java",
+    "tests": 9
+  },
+  {
+    "file": "BasicContentHandlerFactory_handlerTypeName_11_0_Test.java",
+    "tests": 2
+  },
+  {
+    "file": "BasicContentHandlerFactory_hashCode_19_0_Test.java",
+    "tests": 6
+  },
+  {
+    "file": "BasicContentHandlerFactory_newInstance_2_0_Test.java",
+    "tests": 4
+  }
+]

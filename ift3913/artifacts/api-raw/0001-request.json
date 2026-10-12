@@ -1,0 +1,1 @@
+{ "model":"code-llama", "messages":[{"role":"user","content":"Reply with OK."}],"temperature":0.2,"top_p":1,"max_tokens":32,"stream":false }

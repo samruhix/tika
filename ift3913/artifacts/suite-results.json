@@ -1,0 +1,61 @@
+{
+  "A-final-original": {
+    "mutants": 73,
+    "statuses": {
+      "KILLED": 28,
+      "NO_COVERAGE": 41,
+      "SURVIVED": 4
+    },
+    "mutation_score": 0.3835616438356164,
+    "surefire": {
+      "tests": 749,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    }
+  },
+  "B0-generated-passing": {
+    "mutants": 73,
+    "statuses": {
+      "KILLED": 41,
+      "SURVIVED": 4,
+      "NO_COVERAGE": 28
+    },
+    "mutation_score": 0.5616438356164384,
+    "surefire": {
+      "tests": 771,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    }
+  },
+  "B-generated": {
+    "mutants": 73,
+    "statuses": {
+      "KILLED": 54,
+      "SURVIVED": 1,
+      "NO_COVERAGE": 18
+    },
+    "mutation_score": 0.7397260273972602,
+    "surefire": {
+      "tests": 781,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    }
+  },
+  "C-manual": {
+    "mutants": 73,
+    "statuses": {
+      "KILLED": 70,
+      "NO_COVERAGE": 3
+    },
+    "mutation_score": 0.958904109589041,
+    "surefire": {
+      "tests": 790,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    }
+  }
+}

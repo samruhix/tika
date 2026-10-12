@@ -1,0 +1,99 @@
+package org.apache.tika.sax;
+
+import org.apache.tika.sax.BasicContentHandlerFactory;
+import org.apache.tika.parser.ParseContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.xml.sax.ContentHandler;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.Locale;
+import org.mockito.*;
+import org.junit.jupiter.api.*;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import org.xml.sax.helpers.DefaultHandler;
+import org.apache.tika.annotation.TikaComponent;
+import org.apache.tika.config.OutputLimits;
+
+@ExtendWith(MockitoExtension.class)
+public class BasicContentHandlerFactory_createHandler_4_0_Test {
+
+    @Mock
+    private ContentHandler formatHandler;
+
+    @Mock
+    private ParseContext parseContext;
+
+    private BasicContentHandlerFactory factory;
+
+    @BeforeEach
+    public void setUp() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.BODY, 1000, true, parseContext);
+    }
+
+    @Test
+    public void testCreateHandler() {
+        ContentHandler handler = factory.createHandler();
+        assertNotNull(handler);
+        verify(formatHandler, times(1)).setThrowOnWriteLimitReached(true);
+        verify(formatHandler, times(1)).setWriteLimit(1000);
+        verify(formatHandler, times(1)).setParseContext(parseContext);
+    }
+
+    @Test
+    public void testCreateHandlerWithIgnoreType() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.IGNORE, 1000, true, parseContext);
+        ContentHandler handler = factory.createHandler();
+        assertNotNull(handler);
+        assertTrue(handler instanceof NoOpContentHandler);
+    }
+
+    @Test
+    public void testCreateHandlerWithNoWriteLimit() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.BODY, -1, true, parseContext);
+        ContentHandler handler = factory.createHandler();
+        assertNotNull(handler);
+        verify(formatHandler, times(1)).setThrowOnWriteLimitReached(true);
+        verify(formatHandler, times(1)).setParseContext(parseContext);
+    }
+
+    @Test
+    public void testCreateHandlerWithNoThrowOnWriteLimitReached() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.BODY, 1000, false, parseContext);
+        assertThrows(IllegalArgumentException.class, () -> {
+            factory.createHandler();
+        });
+    }
+
+    @Test
+    public void testCreateHandlerWithNullParseContext() {
+        factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.BODY, 1000, false, null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            factory.createHandler();
+        });
+    }
+}
+
+--------------------------------------------
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line -1 : Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line -1 : Supported source version 'RELEASE_17' from annotation processor 'org.apache.tika.annotation.TikaComponentProcessor' less than -source '21'
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 6 : package org.mockito.junit.jupiter does not exist
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 15 : package org.mockito does not exist
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 13 : package org.mockito does not exist
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 21 : cannot find symbol
+  symbol: class MockitoExtension
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 24 : cannot find symbol
+  symbol:   class Mock
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_createHandler_4_0_Test
+Error in BasicContentHandlerFactory_createHandler_4_0_Test: line 27 : cannot find symbol
+  symbol:   class Mock
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_createHandler_4_0_Test

@@ -1,0 +1,27 @@
+[
+    {
+        "file":  "BasicContentHandlerFactory_createHandler_4_0_Test.java",
+        "tests":  11,
+        "sha256":  "C6238C68B3A8D9FC807CCE3A37F21EB873215D4BEAC49EB301311006FC16FF9A"
+    },
+    {
+        "file":  "BasicContentHandlerFactory_equals_18_0_Test.java",
+        "tests":  9,
+        "sha256":  "E5E3619B4A0F20DFF3EC5C809494A554FBEB7C202B3876960D7B2964A0021345"
+    },
+    {
+        "file":  "BasicContentHandlerFactory_handlerTypeName_11_0_Test.java",
+        "tests":  2,
+        "sha256":  "1E52C1E6EA7CE0F43BCF8206579EAEC88AA693DE0CFF2D6CCEC1EFE7F8BA4254"
+    },
+    {
+        "file":  "BasicContentHandlerFactory_hashCode_19_0_Test.java",
+        "tests":  6,
+        "sha256":  "B4F939DC2F8AFD5088B344FA9B331906131C9FB9F35D8DD6C63C835FE49D9F1E"
+    },
+    {
+        "file":  "BasicContentHandlerFactory_newInstance_2_0_Test.java",
+        "tests":  4,
+        "sha256":  "08E7E5892B3549ABF2AA0FD505F8564548760F60CBAB5038AEBECF12228F093E"
+    }
+]

@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: org.apache.tika.sax.BasicContentHandlerFactory_newInstance_2_0_Test
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.847 s <<< FAILURE! -- in org.apache.tika.sax.BasicContentHandlerFactory_newInstance_2_0_Test
+org.apache.tika.sax.BasicContentHandlerFactory_newInstance_2_0_Test.testNewInstanceWithNullParseContext -- Time elapsed: 2.706 s <<< ERROR!
+java.lang.IllegalArgumentException: parse context must not be null if throwOnWriteLimitReached is false
+	at org.apache.tika.sax.BasicContentHandlerFactory.<init>(BasicContentHandlerFactory.java:82)
+	at org.apache.tika.sax.BasicContentHandlerFactory.newInstance(BasicContentHandlerFactory.java:117)
+	at org.apache.tika.sax.BasicContentHandlerFactory_newInstance_2_0_Test.testNewInstanceWithNullParseContext(BasicContentHandlerFactory_newInstance_2_0_Test.java:51)
+

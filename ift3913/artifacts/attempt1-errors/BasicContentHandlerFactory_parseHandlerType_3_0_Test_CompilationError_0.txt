@@ -1,0 +1,75 @@
+package org.apache.tika.sax;
+
+import org.apache.tika.sax.BasicContentHandlerFactory;
+import org.apache.tika.parser.ParseContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.Locale;
+import org.mockito.*;
+import org.junit.jupiter.api.*;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.helpers.DefaultHandler;
+import org.apache.tika.annotation.TikaComponent;
+import org.apache.tika.config.OutputLimits;
+
+@ExtendWith(MockitoExtension.class)
+public class BasicContentHandlerFactory_parseHandlerType_3_0_Test {
+
+    @Mock
+    private ParseContext parseContext;
+
+    private BasicContentHandlerFactory factory;
+
+    @BeforeEach
+    public void setUp() {
+        factory = new BasicContentHandlerFactory();
+    }
+
+    @Test
+    public void testParseHandlerType_withNullHandlerTypeName() {
+        String handlerTypeName = null;
+        BasicContentHandlerFactory.HANDLER_TYPE defaultType = BasicContentHandlerFactory.HANDLER_TYPE.MARKDOWN;
+        BasicContentHandlerFactory.HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType(handlerTypeName, defaultType);
+        assertEquals(defaultType, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withValidHandlerTypeName() {
+        String handlerTypeName = "xml";
+        BasicContentHandlerFactory.HANDLER_TYPE defaultType = BasicContentHandlerFactory.HANDLER_TYPE.MARKDOWN;
+        BasicContentHandlerFactory.HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType(handlerTypeName, defaultType);
+        assertEquals(BasicContentHandlerFactory.HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withInvalidHandlerTypeName() {
+        String handlerTypeName = "invalid";
+        BasicContentHandlerFactory.HANDLER_TYPE defaultType = BasicContentHandlerFactory.HANDLER_TYPE.MARKDOWN;
+        BasicContentHandlerFactory.HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType(handlerTypeName, defaultType);
+        assertEquals(defaultType, result);
+    }
+}
+
+--------------------------------------------
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line -1 : Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line -1 : Supported source version 'RELEASE_17' from annotation processor 'org.apache.tika.annotation.TikaComponentProcessor' less than -source '21'
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 6 : package org.mockito.junit.jupiter does not exist
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 14 : package org.mockito does not exist
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 12 : package org.mockito does not exist
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 21 : cannot find symbol
+  symbol: class MockitoExtension
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 24 : cannot find symbol
+  symbol:   class Mock
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test

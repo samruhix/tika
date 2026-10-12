@@ -1,0 +1,522 @@
+package org.apache.tika.sax;
+
+import org.apache.tika.sax.BasicContentHandlerFactory;
+import org.apache.tika.parser.ParseContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.*;
+import org.junit.jupiter.api.*;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.Locale;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.helpers.DefaultHandler;
+import org.apache.tika.annotation.TikaComponent;
+import org.apache.tika.config.OutputLimits;
+
+@ExtendWith(MockitoExtension.class)
+public class BasicContentHandlerFactory_parseHandlerType_3_0_Test {
+
+    @Mock
+    private ParseContext parseContext;
+
+    private BasicContentHandlerFactory factory;
+
+    @BeforeEach
+    public void setUp() {
+        factory = new BasicContentHandlerFactory();
+    }
+
+    @Test
+    public void testParseHandlerType_withNullHandlerTypeName() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType(null, HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.MARKDOWN, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withValidHandlerTypeName() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("xml", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withInvalidHandlerTypeName() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("unknown", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.MARKDOWN, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withDefaultType() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("unknown", null);
+        assertEquals(HANDLER_TYPE.MARKDOWN, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withEmptyString() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.MARKDOWN, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withWhitespace() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("  xml  ", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withLowerCase() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("xml", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUpperCase() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("XML", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withMixedCase() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("Xml", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withLeadingAndTrailingWhitespace() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("  xml  ", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withLeadingWhitespace() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("  xml", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withTrailingWhitespace() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("xml  ", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withMultipleSpaces() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("  xml  ", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withTabs() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\txml\t", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withCarriageReturns() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\rxml\r", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withLineFeeds() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\nxml\n", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withCarriageReturnLineFeeds() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\r\nxml\r\n", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeWhitespace() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u00A0xml\u00A0", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeLineSeparator() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u2028xml\u2028", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeParagraphSeparator() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u2029xml\u2029", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthSpace() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Bxml\u200B", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNoBreakSpace() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\uFEFFxml\uFEFF", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Dxml\u200D", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+
+    @Test
+    public void testParseHandlerType_withUnicodeZeroWidthNonJoiner() {
+        HANDLER_TYPE result = BasicContentHandlerFactory.parseHandlerType("\u200Cxml\u200C", HANDLER_TYPE.MARKDOWN);
+        assertEquals(HANDLER_TYPE.XML, result);
+    }
+}
+
+--------------------------------------------
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line -1 : Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 179 : method testParseHandlerType_withUnicodeZeroWidthNonJoiner() is already defined in class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 185 : method testParseHandlerType_withUnicodeZeroWidthNonJoiner() is already defined in class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 191 : method testParseHandlerType_withUnicodeZeroWidthNonJoiner() is already defined in class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 197 : method testParseHandlerType_withUnicodeZeroWidthNonJoiner() is already defined in class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 203 : method testParseHandlerType_withUnicodeZeroWidthNonJoiner() is already defined in class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 209 : method testParseHandlerType_withUnicodeZeroWidthNonJoiner() is already defined in class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 215 : method testParseHandlerType_withUnicodeZeroWidthNonJoiner() is already defined in class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 221 : method testParseHandlerType_withUnicodeZeroWidthNonJoiner() is already defined in class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 227 : method testParseHandlerType_withUnicodeZeroWidthNonJoiner() is already defined in class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 36 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 36 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 37 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 42 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 42 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 43 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 48 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 48 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 49 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 54 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 55 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 60 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 60 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 61 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 66 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 66 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 67 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 72 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 72 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 73 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 78 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 78 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 79 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 84 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 84 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 85 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 90 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 90 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 91 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 96 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 96 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 97 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 102 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 102 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 103 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 108 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 108 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 109 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 114 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 114 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 115 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 120 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 120 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 121 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 126 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 126 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 127 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 132 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 132 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 133 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 138 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 138 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 139 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 144 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 144 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 145 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 150 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 150 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 151 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 156 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 156 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 157 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 162 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 162 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 163 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 168 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 168 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 169 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 174 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 174 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 175 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 180 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 180 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 181 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 186 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 186 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 187 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 192 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 192 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 193 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 198 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 198 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 199 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 204 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 204 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 205 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 210 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 210 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 211 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 216 : cannot find symbol
+  symbol:   class HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test
+Error in BasicContentHandlerFactory_parseHandlerType_3_0_Test: line 216 : cannot find symbol
+  symbol:   variable HANDLER_TYPE
+  location: class org.apache.tika.sax.BasicContentHandlerFactory_parseHandlerType_3_0_Test

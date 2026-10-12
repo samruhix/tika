@@ -1,0 +1,22 @@
+[
+    {
+        "stage":  "A-final-original",
+        "mutants":  73,
+        "changedStatuses":  0
+    },
+    {
+        "stage":  "B0-generated-passing",
+        "mutants":  73,
+        "changedStatuses":  0
+    },
+    {
+        "stage":  "B-generated",
+        "mutants":  73,
+        "changedStatuses":  0
+    },
+    {
+        "stage":  "C-manual",
+        "mutants":  73,
+        "changedStatuses":  0
+    }
+]

@@ -1,0 +1,236 @@
+[INFO] Maveniverse Nisse 0.9.4 loaded
+[INFO] Nisse injecting 32 properties into User Properties
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.apache.tika:tika-parent:pom:4.0.0-SNAPSHOT
+[WARNING] 'version' contains an expression but should be a constant. @ org.apache.tika:tika-parent:${revision}, C:\Users\Gaming Pc\tika\tika-parent\pom.xml, line 34, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.apache.tika:tika:pom:4.0.0-SNAPSHOT
+[WARNING] 'version' contains an expression but should be a constant. @ org.apache.tika:tika-parent:${revision}, C:\Users\Gaming Pc\tika\tika-parent\pom.xml, line 34, column 12
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] No need for inlining
+[INFO] 
+[INFO] ---------------------< org.apache.tika:tika-core >----------------------
+[INFO] Building Apache Tika core 4.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] -------------------------------[ bundle ]-------------------------------
+[INFO] 
+[INFO] --- chatunitest:2.1.1:class (default-cli) @ tika-core ---
+[INFO] 
+========================== Configuration ==========================
+
+[INFO] PluginSign >>>>CHATUNITEST
+[INFO]  Multithreading >>>> false
+[INFO]  Stop when success >>>> true
+[INFO]  No execution >>>> false
+[INFO]  Enable Merge >>>> false
+[INFO]  --- 
+[INFO]  TestOutput Path >>> C:\Users\Gaming Pc\tika\tika-core\..\ift3913\artifacts\generated-raw\tika-parent\tika-core
+[INFO]  TmpOutput Path >>> C:\Users\Gaming Pc\tika\tika-core\..\ift3913\artifacts\chatunitest-info\tika-parent\tika-core
+[INFO]  CounterExample Path >>> C:\Users\Gaming Pc\tika\tika-core\smartut-tests
+[INFO]  Prompt path >>> null
+[INFO]  Example path >>> C:\Users\Gaming Pc\tika\tika-core\exampleUsage.json
+[INFO]  --- 
+[INFO]  Model >>> CODE_LLAMA
+[INFO]  Url >>> http://127.0.0.1:11435/v1/chat/completions
+[INFO]  MaxPromptTokens >>> 12000
+[INFO]  MaxResponseTokens >>> 2048
+[INFO]  MinErrorTokens >>> 500
+[INFO]  MaxThreads >>> 80
+[INFO]  TestNumber >>> 1
+[INFO]  MaxRounds >>> 3
+[INFO]  MinErrorTokens >>> 500
+[INFO]  MaxPromptTokens >>> 12000
+[INFO]  SleepTime >>> 0
+[INFO]  DependencyDepth >>> 1
+[INFO]  SampleSize >>> 10
+[INFO]  PhaseType >>> CHATUNITEST
+[INFO] 
+===================================================================
+
+[INFO] 
+==========================
+[CHATUNITEST] Parse output already exists, skip parsing!
+[INFO] 
+==========================
+[CHATUNITEST] Generating tests for class < org.apache.tika.sax.BasicContentHandlerFactory > ...
+[INFO] Skip method: setValidateXHTML(boolean) in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: isValidateXHTML() in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] 
+==========================
+[CHATUNITEST] Generating test for method < newInstance > number 0...
+
+[INFO] Generating test for method < newInstance > round 0 ...
+
+Test run finished after 366 ms
+[         3 containers found      ]
+[         0 containers skipped    ]
+[         3 containers started    ]
+[         0 containers aborted    ]
+[         3 containers successful ]
+[         0 containers failed     ]
+[         4 tests found           ]
+[         0 tests skipped         ]
+[         4 tests started         ]
+[         0 tests aborted         ]
+[         0 tests successful      ]
+[         4 tests failed          ]
+
+[INFO] Test for method < newInstance > compile and execute successfully round 0
+[INFO] 
+==========================
+[CHATUNITEST] Completed Method Jobs:   [ 1 /  0]
+[INFO] 
+==========================
+[CHATUNITEST] Generating test for method < parseHandlerType > number 0...
+
+[INFO] Generating test for method < parseHandlerType > round 0 ...
+[INFO] Test for method < parseHandlerType > compilation failed round 0
+[INFO] Fixing test for method < parseHandlerType > round 1 ...
+[INFO] Test for method < parseHandlerType > compilation failed round 1
+[INFO] Fixing test for method < parseHandlerType > round 2 ...
+[INFO] Test for method < parseHandlerType > compilation failed round 2
+[INFO] 
+==========================
+[CHATUNITEST] Completed Method Jobs:   [ 2 /  0]
+[INFO] 
+==========================
+[CHATUNITEST] Generating test for method < createHandler > number 0...
+
+[INFO] Generating test for method < createHandler > round 0 ...
+[INFO] Test for method < createHandler > compilation failed round 0
+[INFO] Fixing test for method < createHandler > round 1 ...
+
+Test run finished after 83 ms
+[         3 containers found      ]
+[         0 containers skipped    ]
+[         3 containers started    ]
+[         0 containers aborted    ]
+[         3 containers successful ]
+[         0 containers failed     ]
+[        11 tests found           ]
+[         0 tests skipped         ]
+[        11 tests started         ]
+[         0 tests aborted         ]
+[         0 tests successful      ]
+[        11 tests failed          ]
+
+[INFO] Test for method < createHandler > compile and execute successfully round 1
+[INFO] 
+==========================
+[CHATUNITEST] Completed Method Jobs:   [ 3 /  0]
+[INFO] Skip method: createHandlerInner() in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: maybeValidate(ContentHandler) in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: getFormatHandler() in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] 
+==========================
+[CHATUNITEST] Generating test for method < createHandler > number 0...
+
+[INFO] Generating test for method < createHandler > round 0 ...
+[INFO] Test for method < createHandler > compilation failed round 0
+[INFO] Fixing test for method < createHandler > round 1 ...
+[INFO] Test for method < createHandler > compilation failed round 1
+[INFO] Fixing test for method < createHandler > round 2 ...
+[INFO] Test for method < createHandler > compilation failed round 2
+[INFO] 
+==========================
+[CHATUNITEST] Completed Method Jobs:   [ 4 /  0]
+[INFO] Skip method: createHandlerInner(OutputStream, Charset) in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: getType() in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] 
+==========================
+[CHATUNITEST] Generating test for method < handlerTypeName > number 0...
+
+[INFO] Generating test for method < handlerTypeName > round 0 ...
+
+Test run finished after 53 ms
+[         3 containers found      ]
+[         0 containers skipped    ]
+[         3 containers started    ]
+[         0 containers aborted    ]
+[         3 containers successful ]
+[         0 containers failed     ]
+[         2 tests found           ]
+[         0 tests skipped         ]
+[         2 tests started         ]
+[         0 tests aborted         ]
+[         0 tests successful      ]
+[         2 tests failed          ]
+
+[INFO] Test for method < handlerTypeName > compile and execute successfully round 0
+[INFO] 
+==========================
+[CHATUNITEST] Completed Method Jobs:   [ 5 /  0]
+[INFO] Skip method: setType(HANDLER_TYPE) in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: getWriteLimit() in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: setWriteLimit(int) in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: isThrowOnWriteLimitReached() in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: setThrowOnWriteLimitReached(boolean) in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: setParseContext(ParseContext) in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] 
+==========================
+[CHATUNITEST] Generating test for method < equals > number 0...
+
+[INFO] Generating test for method < equals > round 0 ...
+
+Test run finished after 58 ms
+[         3 containers found      ]
+[         0 containers skipped    ]
+[         3 containers started    ]
+[         0 containers aborted    ]
+[         3 containers successful ]
+[         0 containers failed     ]
+[         9 tests found           ]
+[         0 tests skipped         ]
+[         9 tests started         ]
+[         0 tests aborted         ]
+[         0 tests successful      ]
+[         9 tests failed          ]
+
+[INFO] Test for method < equals > compile and execute successfully round 0
+[INFO] 
+==========================
+[CHATUNITEST] Completed Method Jobs:   [ 6 /  0]
+[INFO] 
+==========================
+[CHATUNITEST] Generating test for method < hashCode > number 0...
+
+[INFO] Generating test for method < hashCode > round 0 ...
+
+Test run finished after 84 ms
+[         3 containers found      ]
+[         0 containers skipped    ]
+[         3 containers started    ]
+[         0 containers aborted    ]
+[         3 containers successful ]
+[         0 containers failed     ]
+[         6 tests found           ]
+[         0 tests skipped         ]
+[         6 tests started         ]
+[         0 tests aborted         ]
+[         0 tests successful      ]
+[         6 tests failed          ]
+
+[INFO] Test for method < hashCode > compile and execute successfully round 0
+[INFO] 
+==========================
+[CHATUNITEST] Completed Method Jobs:   [ 7 /  0]
+[INFO] Skip method: BasicContentHandlerFactory() in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: BasicContentHandlerFactory(HANDLER_TYPE, int) in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] Skip method: BasicContentHandlerFactory(HANDLER_TYPE, int, boolean, ParseContext) in class: org.apache.tika.sax.BasicContentHandlerFactory
+[INFO] 
+==========================
+[CHATUNITEST] Generation finished
+[INFO] 
+==========================
+[CHATUNITEST] Test processed
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  06:45 min
+[INFO] Finished at: 2026-10-11T22:50:07-04:00
+[INFO] ------------------------------------------------------------------------
