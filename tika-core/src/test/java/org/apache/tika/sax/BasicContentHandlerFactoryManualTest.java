@@ -35,7 +35,7 @@ import org.apache.tika.config.OutputLimits;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.sax.BasicContentHandlerFactory.HANDLER_TYPE;
 
-/** Tests manuels rÃ©digÃ©s avec Codex, distincts des sorties ChatUniTest. */
+/** Tests manuels, distincts des sorties ChatUniTest. */
 public class BasicContentHandlerFactoryManualTest {
     @Test
     void aliasesAndFallbackAreExact() {
