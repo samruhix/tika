@@ -264,8 +264,3 @@ qui contient les 32 tests générés et les 9 tests manuels :
 [run #4 — 38434328746](https://github.com/samruhix/tika/actions/runs/38434328746).
 Les rapports Surefire sont téléversés comme artefact `core-test-reports`.
 
-## Déclaration d'utilisation de l'IA
-
-En plus de ChatUniTest, un assistant de code (Codex) a aidé à préparer la
-configuration, les scripts, le workflow, ce rapport et les tests manuels. Seules les
-sorties du plugin ChatUniTest sont appelées « tests générés ».
