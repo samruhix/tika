@@ -1,7 +1,7 @@
 # IFT3913 — Tâche 2 : génération de tests et analyse de mutation
 
 **Classe étudiée :** `org.apache.tika.sax.BasicContentHandlerFactory` (module `tika-core`)
-**Branche :** [`tache2`](https://github.com/samruhix/tika/tree/tache2)
+**Branche :** [`tache2-final`](https://github.com/samruhix/tika/tree/tache2-final)
 
 Le README original d'Apache Tika a été renommé `README.apache.md`, car Windows ne
 permet pas d'avoir à la fois `README.md` et `readme.md` dans le même répertoire.
