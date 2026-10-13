@@ -259,9 +259,9 @@ mutants sont **équivalents** pour l'API publique actuelle.
 Workflow : `.github/workflows/ift3913-core-tests.yml` (Java 21,
 `./mvnw -pl tika-core -am test`).
 
-✅ **Succès** sur le commit `dad09e5`, qui contient les 32 tests générés et les
-9 tests manuels :
-[run 38200344944](https://github.com/samruhix/tika/actions/runs/38200344944).
+✅ **Succès** sur la branche `tache2-final` (commit `226ab5c`), qui contient les
+32 tests générés et les 9 tests manuels :
+[run #3 — 38433158752](https://github.com/samruhix/tika/actions/runs/38433158752).
 Les rapports Surefire sont téléversés comme artefact `core-test-reports`.
 
 ## Déclaration d'utilisation de l'IA
