@@ -1,4 +1,5 @@
 name: IFT3913 core tests
+# Exécute tous les tests de tika-core, y compris les tests générés et manuels de la tâche 2.
 on:
   workflow_dispatch:
   push:
