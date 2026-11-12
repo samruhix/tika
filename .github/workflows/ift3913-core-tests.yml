@@ -54,3 +54,17 @@ jobs:
         run: |
           semgrep --version
           git log --oneline -3
+
+      - name: Trouver le commit de référence
+        id: reference
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            REFERENCE="${{ github.event.pull_request.base.sha }}"
+          else
+            REFERENCE="${{ github.event.before }}"
+          fi
+          if [ -z "$REFERENCE" ] || [ "$REFERENCE" = "0000000000000000000000000000000000000000" ]; then
+            REFERENCE=$(git merge-base HEAD origin/tache2-final)
+          fi
+          echo "Commit de référence : $REFERENCE"
+          echo "sha=$REFERENCE" >> "$GITHUB_OUTPUT"      
