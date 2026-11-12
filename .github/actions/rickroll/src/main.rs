@@ -75,15 +75,11 @@ fn main() {
             let markdown = format!(
                 r#"## 🕺 RICKROLLED ! ({reason})
 
-> **Un cas de test de `tika-core` a échoué — Rick Astley prend le contrôle du build !**
+> **Un cas de test de `tika-core` a échoué !**
 
 ![Rick Astley Dancing GIF](https://media1.tenor.com/m/x8v1oNUOmg4AAAAd/rickroll-roll.gif)
 
-### 🎵 Paroles de consolation :
-* *Never gonna give you up*
-* *Never gonna let you down*
-* *Never gonna run around and desert you*
-* *Never gonna make you cry, never gonna say goodbye*
+
 
 🔗 **[Cliquez ici pour réparer les tests automatiquement](https://www.youtube.com/watch?v=dQw4w9WgXcQ)**
 "#
