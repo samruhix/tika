@@ -73,8 +73,7 @@ jobs:
         run: >
           semgrep scan
           --config p/java
-          --baseline-commit ${{ steps.reference.outputs.shaet icic ?
-          }}
+          --baseline-commit ${{ steps.reference.outputs.sha }}
           --error
           --metrics=off
           --json-output=semgrep-report.json
