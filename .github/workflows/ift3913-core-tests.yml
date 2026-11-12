@@ -35,3 +35,22 @@ jobs:
         with:
           name: core-test-reports
           path: tika-core/target/surefire-reports/
+
+
+  semgrep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Autoriser git dans le conteneur
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Vérifier les outils
+        run: |
+          semgrep --version
+          git log --oneline -3
