@@ -1,14 +1,23 @@
 name: IFT3913 core tests
-# Exécute tous les tests de tika-core, y compris les tests générés et manuels de la tâche 2.
+# Job 1 (tâche 2) : exécute tous les tests de tika-core.
+# Job 2 (tâche 3) : fait échouer l’exécution du workflow si un commit introduit une nouvelle vulnérabilité détectée par Semgrep.
 on:
   workflow_dispatch:
   push:
     paths:
       - 'tika-core/**'
+      - 'tika-serialization/**'
+      - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/**'
+      - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/**'
+      - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-ocr-module/**'
       - '.github/workflows/ift3913-core-tests.yml'
   pull_request:
     paths:
       - 'tika-core/**'
+      - 'tika-serialization/**'
+      - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/**'
+      - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/**'
+      - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-ocr-module/**'
       - '.github/workflows/ift3913-core-tests.yml'
 jobs:
   core-tests:
