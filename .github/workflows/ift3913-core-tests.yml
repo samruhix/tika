@@ -11,6 +11,7 @@ on:
       - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/**'
       - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-ocr-module/**'
       - '.github/workflows/ift3913-core-tests.yml'
+      - '.github/actions/rickroll/**'
   pull_request:
     paths:
       - 'tika-core/**'
@@ -19,6 +20,7 @@ on:
       - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/**'
       - 'tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-ocr-module/**'
       - '.github/workflows/ift3913-core-tests.yml'
+      - '.github/actions/rickroll/**'
 jobs:
   core-tests:
     runs-on: ubuntu-latest
@@ -29,7 +31,14 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-      - run: ./mvnw -B -pl tika-core -am test -DskipTests=false -Dmaven.test.skip=false
+      - name: Exécuter les tests de tika-core
+        id: maven-tests
+        run: ./mvnw -B -pl tika-core -am test -DskipTests=false -Dmaven.test.skip=false
+      - name: Rickroll quand un cas de test échoue
+        if: failure() && steps.maven-tests.outcome == 'failure'
+        uses: ./.github/actions/rickroll
+        with:
+          reason: "Un cas de test de tika-core a échoué !"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

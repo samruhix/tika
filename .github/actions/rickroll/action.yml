@@ -1,0 +1,18 @@
+name: 'Rust Rickroll on Test Failure'
+description: 'Action réutilisable en Rust qui rickroll le terminal CI et le résumé GitHub Actions quand un test échoue'
+inputs:
+  reason:
+    description: 'Message expliquant pourquoi le rickroll a été déclenché'
+    required: false
+    default: 'Un cas de test de tika-core a échoué !'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Compiler et exécuter le Rickroll en Rust
+      shell: bash
+      env:
+        INPUT_REASON: ${{ inputs.reason }}
+      run: |
+        rustc "${{ github.action_path }}/src/main.rs" -O -o /tmp/tika-rickroll
+        /tmp/tika-rickroll

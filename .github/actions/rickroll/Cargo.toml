@@ -1,0 +1,5 @@
+[package]
+name = "tika-rickroll-action"
+version = "0.1.0"
+edition = "2021"
+description = "Action GitHub réutilisable en Rust qui rickroll la CI lorsqu'un test échoue (IFT3913 - Tâche 3)"
