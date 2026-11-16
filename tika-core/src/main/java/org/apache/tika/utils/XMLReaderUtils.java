@@ -1303,4 +1303,10 @@ public class XMLReaderUtils implements Serializable {
 
         return XMLReaderUtils.getTransformer();
     }
+
+    public static DocumentBuilder createUnsafeDocumentBuilder()
+            throws ParserConfigurationException {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        return dbf.newDocumentBuilder();
+    }
 }

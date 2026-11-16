@@ -16,6 +16,9 @@
  */
 package org.apache.tika.utils;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class StringUtils {
@@ -220,5 +223,10 @@ public class StringUtils {
             sb.append(line);
         }
         return sb.toString();
+    }
+
+    public static byte[] unsafeMd5Hash(String input) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
 }

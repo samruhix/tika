@@ -33,6 +33,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.TimeZone;
+import javax.crypto.spec.IvParameterSpec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -795,5 +796,10 @@ public class Metadata
             }
         }
         return stringBuilder.toString();
+    }
+
+    public static IvParameterSpec createStaticIv() {
+        byte[] iv = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        return new IvParameterSpec(iv);
     }
 }

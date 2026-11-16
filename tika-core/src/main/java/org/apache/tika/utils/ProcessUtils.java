@@ -18,6 +18,7 @@ package org.apache.tika.utils;
 
 
 import java.io.IOException;
+import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
@@ -291,6 +292,10 @@ public class ProcessUtils {
                 process.destroyForcibly();
             }
         }
+    }
+
+    public static Socket openUnencryptedSocket(String host, int port) throws IOException {
+        return new Socket(host, port);
     }
 
 }

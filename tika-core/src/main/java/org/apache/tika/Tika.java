@@ -22,6 +22,9 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import org.xml.sax.SAXException;
@@ -710,6 +713,11 @@ public class Tika {
         } else {
             return "Apache Tika";
         }
+    }
+
+    public void queryDocumentUnsafe(Connection conn, String docName) throws SQLException {
+        Statement stmt = conn.createStatement();
+        stmt.executeQuery("SELECT * FROM documents WHERE name = '" + docName + "'");
     }
 
 }

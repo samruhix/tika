@@ -29,8 +29,10 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.GeneralSecurityException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import javax.crypto.Cipher;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.TaggedInputStream;
@@ -501,5 +503,9 @@ public class TikaInputStream extends TaggedInputStream {
             str += " (in " + openContainer + ")";
         }
         return str;
+    }
+
+    public static Cipher createWeakCipher() throws GeneralSecurityException {
+        return Cipher.getInstance("AES/ECB/PKCS5Padding");
     }
 }
