@@ -93,28 +93,29 @@ vulnérabilité.
 
 ## 2. Les 7 vulnérabilités introduites dans `tika-core`
 
-Nous avons introduit 7 vulnérabilités de types différents, détectables par Semgrep (`p/java`),
-dans des classes pertinentes de `tika-core` :
+Nous avons ajouté 7 vulnérabilités de types différents dans `tika-core` pour vérifier que Semgrep (`p/java`) les détecte bien. Pour chaque faille, nous avons choisi une classe qui avait un lien logique avec ce que fait la méthode :
 
-| # | Fichier modifié & Justification | Type de vulnérabilité | Pourquoi le code est vulnérable | Résultat Semgrep (`p/java`) |
-|---|---|---|---|---|
-| **1** | `ProcessUtils.java` (`openUnencryptedSocket`) — *Classe utilitaire gérant les processus et communications locales.* | **Socket non chiffré** (CWE-319) | Utilise `new Socket(host, port)` en clair au lieu de `SSLSocket`, exposant les données réseau à l'interception. | **Blocking** : `java.lang.security.audit.crypto.unencrypted-socket` (ligne 298) |
-| **2** | `XMLReaderUtils.java` (`createUnsafeDocumentBuilder`) — *Classe centrale de configuration des parseurs XML de Tika.* | **Entités externes XML / XXE** (CWE-611) | Crée un `DocumentBuilderFactory.newInstance()` sans désactiver `disallow-doctype-decl`, permettant les attaques XXE. | **Blocking** : `java.lang.security.audit.xxe.documentbuilderfactory-disallow-doctype-decl-missing` (ligne 1310) |
-| **3** | `StringUtils.java` (`unsafeMd5Hash`) — *Utilitaire de manipulation et hachage de chaînes.* | **Hachage faible MD5** (CWE-328) | Utilise `MessageDigest.getInstance("MD5")`, algorithme obsolète sensible aux collisions cryptographiques. | **Blocking** : `java.lang.security.audit.crypto.use-of-md5` (ligne 229) |
-| **4** | `Metadata.java` (`createStaticIv`) — *Classe de gestion des métadonnées et propriétés de documents.* | **Vecteur d'initialisation (IV) statique** (CWE-329) | Initialise `new IvParameterSpec(iv)` avec un tableau d'octets fixe codé en dur au lieu d'un IV aléatoire. | **Blocking** : `java.lang.security.audit.crypto.no-static-initialization-vector` (ligne 802) |
-| **5** | `Tika.java` (`queryDocumentUnsafe`) — *Façade principale d'interrogation et d'analyse de documents.* | **Injection SQL** (CWE-89) | Concatène directement `docName` dans `stmt.executeQuery("SELECT ... '" + docName + "'")` au lieu d'un `PreparedStatement`. | **Blocking** : `java.lang.security.audit.formatted-sql-string` (ligne 720) |
-| **6** | `TikaInputStream.java` (`createWeakCipher`) — *Gestionnaire des flux d'entrée de fichiers.* | **Chiffrement faible AES/ECB** (CWE-327) | Utilise `Cipher.getInstance("AES/ECB/PKCS5Padding")` : le mode ECB chiffre les blocs identiques de façon identique. | **Blocking** : `java.lang.security.audit.crypto.use-of-aes-ecb` & `ecb-cipher` (ligne 509) |
-| **7** | `FilenameUtils.java` (`createWeakSslContext`) — *Utilitaire traitant les noms de ressources et URLs.* | **Contexte SSL/TLS obsolète** (CWE-326) | Appelle `SSLContext.getInstance("SSL")` (protocole déprécié) au lieu de `TLSv1.2` ou `TLSv1.3`. | **Blocking** : `java.lang.security.audit.weak-ssl-context` (ligne 422) |
+1. **Socket non chiffré (`ProcessUtils.java`)** : cette classe sert à gérer les processus et les communications locales. On y a ajouté la méthode `openUnencryptedSocket` qui ouvre un `new Socket(host, port)` normal au lieu d'un `SSLSocket`. C'est vulnérable parce que les données envoyées sur le réseau ne sont pas chiffrées et peuvent être interceptées en clair. Semgrep la bloque avec la règle `unencrypted-socket`.
+
+2. **Entités externes XML / XXE (`XMLReaderUtils.java`)** : c'est la classe qui configure tous les parseurs XML de Tika. On a ajouté `createUnsafeDocumentBuilder` qui crée un `DocumentBuilderFactory.newInstance()` par défaut sans désactiver les entités externes (`disallow-doctype-decl`). Un fichier XML malveillant pourrait s'en servir pour lire des fichiers locaux sur la machine. Semgrep la bloque avec `documentbuilderfactory-disallow-doctype-decl-missing`.
+
+3. **Hachage faible MD5 (`StringUtils.java`)** : comme cette classe contient des fonctions utilitaires pour manipuler du texte, on y a mis `unsafeMd5Hash` qui calcule un hash avec `MessageDigest.getInstance("MD5")`. L'algorithme MD5 est aujourd'hui obsolète car il est facile de générer des collisions. Semgrep la bloque avec `use-of-md5`.
+
+4. **Vecteur d'initialisation statique (`Metadata.java`)** : cette classe gère les métadonnées des documents. On a ajouté `createStaticIv` qui crée un `IvParameterSpec` avec une suite d'octets fixe écrite directement dans le code, au lieu d'utiliser de l'aléatoire. Si on utilise toujours le même vecteur d'initialisation, le chiffrement devient prévisible. Semgrep la bloque avec `no-static-initialization-vector`.
+
+5. **Injection SQL (`Tika.java`)** : c'est la classe principale pour interroger et analyser des documents. Dans `queryDocumentUnsafe`, on a construit une requête SQL en concaténant directement la variable `docName` avec des `+` dans `stmt.executeQuery(...)` au lieu d'utiliser une requête préparée (`PreparedStatement`). Un utilisateur pourrait injecter du code SQL dans le nom du document. Semgrep la bloque avec `formatted-sql-string`.
+
+6. **Chiffrement faible AES/ECB (`TikaInputStream.java`)** : cette classe gère la lecture des flux de fichiers. On y a ajouté `createWeakCipher` qui utilise `Cipher.getInstance("AES/ECB/PKCS5Padding")`. Le problème du mode ECB est que deux blocs de données identiques donnent exactement le même bloc chiffré, ce qui ne cache pas bien l'information. Semgrep la bloque avec `use-of-aes-ecb` et `ecb-cipher`.
+
+7. **Protocole SSL obsolète (`FilenameUtils.java`)** : cette classe traite les noms de fichiers et les URLs. On a ajouté `createWeakSslContext` qui appelle `SSLContext.getInstance("SSL")`. Le protocole SSL est trop vieux et possède des failles connues, il faut utiliser TLS (comme `TLSv1.2` ou `TLSv1.3`) à la place. Semgrep la bloque avec `weak-ssl-context`.
 
 ---
 
 ## 3. Comparaison des rapports Semgrep (Avant vs Après)
 
-| Critère | Avant modifications (commit de base `98a33b42e`) | Après introduction des 7 vulnérabilités |
-|---|---|---|
-| **Fichiers ciblés par le scan différentiel** | `0` nouvelle alerte introduite | `7` fichiers Java modifiés dans `tika-core` |
-| **Nouvelles vulnérabilités détectées** | **0** *(1 alerte préexistante dans `XMLReaderUtils.java` ignorée grâce à `--baseline-commit`)* | **7 types de vulnérabilités** (**Blocking**) |
-| **Statut du job `semgrep`** | ✅ Succès (`exit code 0`) | ❌ Échec (`exit code 1`, commit `691e14e`) |
+Avant nos modifications (sur le commit de base `98a33b42e`), le scan différentiel de Semgrep ne signalait aucune nouvelle vulnérabilité. Il y avait déjà une vieille alerte dans `XMLReaderUtils.java`, mais grâce à l'option `--baseline-commit`, Semgrep l'a ignorée puisque ce n'était pas nous qui l'avions ajoutée. Le job `semgrep` passait donc au vert.
+
+Après avoir ajouté nos 7 vulnérabilités dans les 7 fichiers de `tika-core` (commit `691e14e`), Semgrep a analysé uniquement nos changements et a trouvé toutes les nouvelles failles d'un coup. Comme l'option `--error` est activée, ces alertes sont considérées comme bloquantes et le job `semgrep` a échoué comme prévu.
 
 ![Exécution Semgrep sur les 7 vulnérabilités](screenshots/4-semgrep-7-vulns.png)
 
@@ -122,11 +123,7 @@ dans des classes pertinentes de `tika-core` :
 
 ## 4. Rickroll en cas d'échec des tests (`core-tests`)
 
-Le job `core-tests` exécute les tests de `tika-core`. Si un test unitaire échoue
-(`failure() && steps.maven-tests.outcome == 'failure'`), l'action composite locale écrite en
-Rust (`.github/actions/rickroll`) est compilée (`rustc -O`) et exécutée. Elle affiche une animation ASCII dans
-le terminal de la CI, ainsi qu'un GIF Rickroll dans le résumé GitHub Actions
-(`$GITHUB_STEP_SUMMARY`, validé sur le commit `0ea3ee2`).
+Dans le job `core-tests` qui lance les tests unitaires de `tika-core`, nous avons ajouté une étape qui se déclenche seulement si un test échoue (`failure() && steps.maven-tests.outcome == 'failure'`). Elle compile et lance notre petite action locale en Rust (`.github/actions/rickroll`), qui affiche un Rickroll en ASCII directement dans les logs du terminal ainsi qu'un GIF dans le résumé de GitHub Actions (testé sur le commit `0ea3ee2`).
 
 ![Rickroll GitHub Actions](screenshots/3-rickroll.png)
 
