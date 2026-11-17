@@ -66,7 +66,9 @@ Pour valider la modification, nous avons poussé trois commits sur la branche `t
 #### Test 1 : commit sans vulnérabilité
 
 Ce commit ne modifie que le fichier du workflow, sans aucun code Java. Il n'y a donc aucune
-nouvelle vulnérabilité, et le job `semgrep` doit réussir. Résultat : le job a réussi ✅.
+nouvelle vulnérabilité, et le job `semgrep` doit réussir. Résultat : le job a réussi ✅ (commit `c1b62d9`).
+
+![Validation workflow Semgrep - Succès](screenshots/1-workflow-succes.png)
 
 #### Test 2 : ajout d'une vulnérabilité
 
@@ -74,54 +76,64 @@ Nous avons ajouté dans `tika-core` une classe temporaire, `TestSemgrep.java`, q
 données avec `Cipher.getInstance("DES/ECB/PKCS5Padding")`. DES est un chiffrement obsolète, et le
 mode ECB laisse voir les motifs du message. Le job `semgrep` doit échouer. Résultat : Semgrep a
 détecté deux nouvelles alertes sur cette ligne (`des-is-deprecated` et `ecb-cipher`), et le job a
-échoué ❌. Le job `core-tests` a réussi sur le même commit : le code compilait et passait tous les
+échoué ❌ (commit `53dd29b`). Le job `core-tests` a réussi sur le même commit : le code compilait et passait tous les
 tests, mais le build a bien été bloqué.
+
+![Validation workflow Semgrep - Échec](screenshots/2-workflow-echec.png)
 
 #### Test 3 : suppression de la vulnérabilité
 
 Nous avons supprimé `TestSemgrep.java`. Plus aucune nouvelle alerte n'existe, et le job `semgrep`
-doit à nouveau réussir. Résultat : le job a réussi ✅.
+doit à nouveau réussir. Résultat : le job a réussi ✅ (commit `9f614d9fd`).
 
 Ces trois tests montrent que le job ne bloque le build que lorsqu'un commit ajoute une
 vulnérabilité.
 
-## 2. Rickroll en cas d'échec des tests
+---
 
-Le job `core-tests` exécute les tests de `tika-core`. Si un test unitaire échoue
-(`failure() && steps.maven-tests.outcome == 'failure'`), l'action composite locale écrite en
-Rust (`.github/actions/rickroll`) est compilée et exécutée. Elle affiche une animation ASCII dans
-le terminal de la CI, ainsi qu'un GIF Rickroll dans le résumé GitHub Actions
-(`$GITHUB_STEP_SUMMARY`).
-
-## 3. Les 7 vulnérabilités introduites dans `tika-core`
+## 2. Les 7 vulnérabilités introduites dans `tika-core`
 
 Nous avons introduit 7 vulnérabilités de types différents, détectables par Semgrep (`p/java`),
 dans des classes pertinentes de `tika-core` :
 
-1. **Transmission en clair par socket non chiffré (CWE-319)** dans `ProcessUtils.java`
-   (`openUnencryptedSocket`) : ouverture d'un `new Socket(host, port)` standard au lieu d'un
-   `SSLSocket`, ce qui expose le trafic réseau à l'interception (règle `unencrypted-socket`).
-2. **Entités externes XML / XXE (CWE-611)** dans `XMLReaderUtils.java`
-   (`createUnsafeDocumentBuilder`) : création d'un `DocumentBuilderFactory` par défaut sans
-   désactiver `disallow-doctype-decl`, ce qui expose aux attaques XXE (règle
-   `documentbuilderfactory-disallow-doctype-decl-missing`).
-3. **Hachage cryptographique faible (CWE-328)** dans `StringUtils.java` (`unsafeMd5Hash`) :
-   utilisation de l'algorithme obsolète `MessageDigest.getInstance("MD5")`, vulnérable aux
-   collisions (règle `use-of-md5`).
-4. **Vecteur d'initialisation (IV) statique (CWE-329)** dans `Metadata.java` (`createStaticIv`) :
-   création d'un `IvParameterSpec` avec un tableau d'octets constant, écrit en dur, au lieu d'un
-   IV aléatoire, ce qui rend le chiffrement prévisible (règle `no-static-initialization-vector`).
-5. **Injection SQL (CWE-89)** dans `Tika.java` (`queryDocumentUnsafe`) : concaténation directe du
-   paramètre `docName` dans une requête SQL exécutée avec `Statement.executeQuery()`, au lieu
-   d'un `PreparedStatement` (règle `formatted-sql-string`).
-6. **Chiffrement faible en mode ECB (CWE-327)** dans `TikaInputStream.java`
-   (`createWeakCipher`) : utilisation de `Cipher.getInstance("AES/ECB/PKCS5Padding")`, qui chiffre
-   les blocs de façon déterministe, sans confidentialité sémantique (règle `use-of-aes-ecb`).
-7. **Contexte SSL/TLS obsolète (CWE-326)** dans `FilenameUtils.java` (`createWeakSslContext`) :
-   utilisation de `SSLContext.getInstance("SSL")`, un protocole déprécié, au lieu de `TLSv1.2`
-   ou `TLSv1.3` (règle `weak-ssl-context`).
+| # | Fichier modifié & Justification | Type de vulnérabilité | Pourquoi le code est vulnérable | Résultat Semgrep (`p/java`) |
+|---|---|---|---|---|
+| **1** | `ProcessUtils.java` (`openUnencryptedSocket`) — *Classe utilitaire gérant les processus et communications locales.* | **Socket non chiffré** (CWE-319) | Utilise `new Socket(host, port)` en clair au lieu de `SSLSocket`, exposant les données réseau à l'interception. | **Blocking** : `java.lang.security.audit.crypto.unencrypted-socket` (ligne 298) |
+| **2** | `XMLReaderUtils.java` (`createUnsafeDocumentBuilder`) — *Classe centrale de configuration des parseurs XML de Tika.* | **Entités externes XML / XXE** (CWE-611) | Crée un `DocumentBuilderFactory.newInstance()` sans désactiver `disallow-doctype-decl`, permettant les attaques XXE. | **Blocking** : `java.lang.security.audit.xxe.documentbuilderfactory-disallow-doctype-decl-missing` (ligne 1310) |
+| **3** | `StringUtils.java` (`unsafeMd5Hash`) — *Utilitaire de manipulation et hachage de chaînes.* | **Hachage faible MD5** (CWE-328) | Utilise `MessageDigest.getInstance("MD5")`, algorithme obsolète sensible aux collisions cryptographiques. | **Blocking** : `java.lang.security.audit.crypto.use-of-md5` (ligne 229) |
+| **4** | `Metadata.java` (`createStaticIv`) — *Classe de gestion des métadonnées et propriétés de documents.* | **Vecteur d'initialisation (IV) statique** (CWE-329) | Initialise `new IvParameterSpec(iv)` avec un tableau d'octets fixe codé en dur au lieu d'un IV aléatoire. | **Blocking** : `java.lang.security.audit.crypto.no-static-initialization-vector` (ligne 802) |
+| **5** | `Tika.java` (`queryDocumentUnsafe`) — *Façade principale d'interrogation et d'analyse de documents.* | **Injection SQL** (CWE-89) | Concatène directement `docName` dans `stmt.executeQuery("SELECT ... '" + docName + "'")` au lieu d'un `PreparedStatement`. | **Blocking** : `java.lang.security.audit.formatted-sql-string` (ligne 720) |
+| **6** | `TikaInputStream.java` (`createWeakCipher`) — *Gestionnaire des flux d'entrée de fichiers.* | **Chiffrement faible AES/ECB** (CWE-327) | Utilise `Cipher.getInstance("AES/ECB/PKCS5Padding")` : le mode ECB chiffre les blocs identiques de façon identique. | **Blocking** : `java.lang.security.audit.crypto.use-of-aes-ecb` & `ecb-cipher` (ligne 509) |
+| **7** | `FilenameUtils.java` (`createWeakSslContext`) — *Utilitaire traitant les noms de ressources et URLs.* | **Contexte SSL/TLS obsolète** (CWE-326) | Appelle `SSLContext.getInstance("SSL")` (protocole déprécié) au lieu de `TLSv1.2` ou `TLSv1.3`. | **Blocking** : `java.lang.security.audit.weak-ssl-context` (ligne 422) |
+
+---
+
+## 3. Comparaison des rapports Semgrep (Avant vs Après)
+
+| Critère | Avant modifications (commit de base `98a33b42e`) | Après introduction des 7 vulnérabilités |
+|---|---|---|
+| **Fichiers ciblés par le scan différentiel** | `0` nouvelle alerte introduite | `7` fichiers Java modifiés dans `tika-core` |
+| **Nouvelles vulnérabilités détectées** | **0** *(1 alerte préexistante dans `XMLReaderUtils.java` ignorée grâce à `--baseline-commit`)* | **7 types de vulnérabilités** (**Blocking**) |
+| **Statut du job `semgrep`** | ✅ Succès (`exit code 0`) | ❌ Échec (`exit code 1`, commit `691e14e`) |
+
+![Exécution Semgrep sur les 7 vulnérabilités](screenshots/4-semgrep-7-vulns.png)
+
+---
+
+## 4. Rickroll en cas d'échec des tests (`core-tests`)
+
+Le job `core-tests` exécute les tests de `tika-core`. Si un test unitaire échoue
+(`failure() && steps.maven-tests.outcome == 'failure'`), l'action composite locale écrite en
+Rust (`.github/actions/rickroll`) est compilée (`rustc -O`) et exécutée. Elle affiche une animation ASCII dans
+le terminal de la CI, ainsi qu'un GIF Rickroll dans le résumé GitHub Actions
+(`$GITHUB_STEP_SUMMARY`, validé sur le commit `0ea3ee2`).
+
+![Rickroll GitHub Actions](screenshots/3-rickroll.png)
+
+---
 
 ## Usage de l'IA
 
-Nous avons utilisé Claude pour mieux comprendre GitHub Actions et Semgrep, et pour corriger
+Nous avons utilisé l'IA pour mieux comprendre GitHub Actions et Semgrep, et pour corriger
 certaines erreurs.
+
